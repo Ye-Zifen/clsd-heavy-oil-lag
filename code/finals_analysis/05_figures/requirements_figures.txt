@@ -1,0 +1,2 @@
+# 其余依赖见代码包根目录的 requirements.txt
+matplotlib==3.11.2

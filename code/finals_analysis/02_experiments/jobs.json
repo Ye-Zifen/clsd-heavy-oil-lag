@@ -1,0 +1,227 @@
+[
+{
+"name": "base_2025-10-15_92",
+"cut": "2025-10-15",
+"H": 92
+},
+{
+"name": "base_2025-10-31_92",
+"cut": "2025-10-31",
+"H": 92
+},
+{
+"name": "base_2025-11-15_92",
+"cut": "2025-11-15",
+"H": 92
+},
+{
+"name": "base_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92
+},
+{
+"name": "b2to1_2025-10-15_92",
+"cut": "2025-10-15",
+"H": 92,
+"train": "block:区块2",
+"test": "block:区块1"
+},
+{
+"name": "b2to1_2025-10-31_92",
+"cut": "2025-10-31",
+"H": 92,
+"train": "block:区块2",
+"test": "block:区块1"
+},
+{
+"name": "b2to1_2025-11-15_92",
+"cut": "2025-11-15",
+"H": 92,
+"train": "block:区块2",
+"test": "block:区块1"
+},
+{
+"name": "b2to1_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"train": "block:区块2",
+"test": "block:区块1"
+},
+{
+"name": "b1to2_2025-10-15_92",
+"cut": "2025-10-15",
+"H": 92,
+"train": "block:区块1",
+"test": "block:区块2"
+},
+{
+"name": "b1to2_2025-10-31_92",
+"cut": "2025-10-31",
+"H": 92,
+"train": "block:区块1",
+"test": "block:区块2"
+},
+{
+"name": "b1to2_2025-11-15_92",
+"cut": "2025-11-15",
+"H": 92,
+"train": "block:区块1",
+"test": "block:区块2"
+},
+{
+"name": "b1to2_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"train": "block:区块1",
+"test": "block:区块2"
+},
+{
+"name": "lite_t200_2025-10-15_92",
+"cut": "2025-10-15",
+"H": 92,
+"et": {
+"n_estimators": 200
+}
+},
+{
+"name": "lite_t200_2025-10-31_92",
+"cut": "2025-10-31",
+"H": 92,
+"et": {
+"n_estimators": 200
+}
+},
+{
+"name": "lite_t200_2025-11-15_92",
+"cut": "2025-11-15",
+"H": 92,
+"et": {
+"n_estimators": 200
+}
+},
+{
+"name": "lite_t200_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"et": {
+"n_estimators": 200
+}
+},
+{
+"name": "lite_t100l5_2025-10-15_92",
+"cut": "2025-10-15",
+"H": 92,
+"et": {
+"n_estimators": 100,
+"min_samples_leaf": 5
+}
+},
+{
+"name": "lite_t100l5_2025-10-31_92",
+"cut": "2025-10-31",
+"H": 92,
+"et": {
+"n_estimators": 100,
+"min_samples_leaf": 5
+}
+},
+{
+"name": "lite_t100l5_2025-11-15_92",
+"cut": "2025-11-15",
+"H": 92,
+"et": {
+"n_estimators": 100,
+"min_samples_leaf": 5
+}
+},
+{
+"name": "lite_t100l5_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"et": {
+"n_estimators": 100,
+"min_samples_leaf": 5
+}
+},
+{
+"name": "lite_t50l10_2025-10-15_92",
+"cut": "2025-10-15",
+"H": 92,
+"et": {
+"n_estimators": 50,
+"min_samples_leaf": 10
+}
+},
+{
+"name": "lite_t50l10_2025-10-31_92",
+"cut": "2025-10-31",
+"H": 92,
+"et": {
+"n_estimators": 50,
+"min_samples_leaf": 10
+}
+},
+{
+"name": "lite_t50l10_2025-11-15_92",
+"cut": "2025-11-15",
+"H": 92,
+"et": {
+"n_estimators": 50,
+"min_samples_leaf": 10
+}
+},
+{
+"name": "lite_t50l10_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"et": {
+"n_estimators": 50,
+"min_samples_leaf": 10
+}
+},
+{
+"name": "fold0_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"train": "notfold:0/3",
+"test": "fold:0/3"
+},
+{
+"name": "fold1_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"train": "notfold:1/3",
+"test": "fold:1/3"
+},
+{
+"name": "fold2_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"train": "notfold:2/3",
+"test": "fold:2/3"
+},
+{
+"name": "abl_bank_2025-10-31_92",
+"cut": "2025-10-31",
+"H": 92,
+"cols": "bank"
+},
+{
+"name": "abl_bank_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"cols": "bank"
+},
+{
+"name": "abl_bank-rank_2025-10-31_92",
+"cut": "2025-10-31",
+"H": 92,
+"cols": "bank+rank"
+},
+{
+"name": "abl_bank-rank_2025-11-30_92",
+"cut": "2025-11-30",
+"H": 92,
+"cols": "bank+rank"
+}
+]

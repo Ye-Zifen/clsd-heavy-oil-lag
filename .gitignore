@@ -1,0 +1,22 @@
+# 比赛数据与预测结果（不随仓库发布）
+data/
+result/
+result_*/
+
+# 训练好的模型（运行后生成）
+code/models/*.pkl
+
+# 补充分析脚本的输出
+code/finals_analysis/outputs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

@@ -1,0 +1,74 @@
+# 轻量档配置：只把分段分类器（两个 ExtraTrees）改小，其余参数与标准档 config.yaml 完全相同。
+# 用于算力或存储受限的部署：python predict.py --config config_lite.yaml --data_dir ... --output ...
+# 结果与标准档不同，不用于复现提交结果。精度与成本的对比见 README.md 第 9 节 (2)。
+
+paths:
+  model_file: models/model_lite.pkl # 轻量档模型单独存放，不覆盖标准档的 models/model.pkl
+
+runtime:
+  n_jobs: 0                         # 并行度：0 = 自动（CPU 核数，最多 8）；1 = 单进程单线程。只影响运行速度，结果逐字节相同
+
+training:
+  recency_halflife_days: 150        # 训练样本按距训练末日的天数做半衰期加权
+
+segment_classifier:                 # 分段分类器：两个 ExtraTrees 各 50 棵（标准档 400 棵），叶子至少 10 个样本（标准档 3 个）
+  n_estimators: 50
+  max_features: 0.1
+  min_samples_leaf: 10
+  random_states: [0, 1]
+  targets: [binary, c7]             # 第 1 个：短/长二分类；第 2 个：7 类（0/1/2/3/4–9/10–25/26–45），P(短段) = 前 4 类概率之和
+  missing_value: -1.0               # 特征缺失值填充
+
+calibration:                        # P(短段) = max(sigmoid(a + b·logit(p_et) + 历史标签偏置), p_floor)
+  a: -0.1753
+  b: 1.1625
+  p_floor: 0.07
+
+history:                            # 历史标签偏置（logit 尺度），只用早于 t 的训练标签，见 src/model.py 的 history_terms
+  enabled: true                     # false 时不使用训练标签历史（P(短段) 只由 ExtraTrees 概率校准得到）
+  taus: [1.0, 3.0, 7.0]             # 锚点分段 s=±1 的衰减时间（天）
+  beta: [-0.0204, -0.042, -0.0263]
+  rhos: [7.0, 15.0, 30.0]           # 锚点残差 r 的衰减时间（天）
+  gamma: [0.0315, 0.118, 0.2137]
+  anchor_holdout_days: 14           # 锚点模型只用训练末日前 14 天及以前的标签训练
+  similarity:                       # 曲线相似度加权项：c = max(0, corr(t 处曲线, 锚点处曲线))^power
+    enabled: true
+    curve_prefix: pl.90.ma0.L       # W=90 的 −log10 p 曲线（46 点）
+    power: 1.0
+    rhos: [15.0, 60.0]              # c·r 项的衰减时间（天）
+    gamma: [0.1255, 0.2402]
+    taus: [7.0, 30.0]               # c·s 项的衰减时间（天）
+    beta: [0.0622, 0.3043]
+  value:                            # 锚点标签为 0–3 时，给短段取值同一值的 log 概率加 Σ g_k·exp(−h/τ_k)
+    enabled: true
+    taus: [3.0, 7.0, 15.0]
+    g: [-0.1678, 0.0746, 0.5166]
+
+decision:
+  p_assume: 0.42                    # 把 MAE 项折算为单样本代价时假设的短段占比
+
+short_value_model:                  # 短段取值 0–3 的 4 分类：LightGBM
+  objective: multiclass
+  n_estimators: 300
+  learning_rate: 0.03
+  num_leaves: 31
+  min_child_samples: 20
+  feature_fraction: 0.4
+  lambda_l2: 1.0
+  max_bin: 63
+
+long_value_model:                   # 长段取值回归（L1 损失，给出条件中位数）：LightGBM
+  objective: l1
+  n_estimators: 80
+  learning_rate: 0.06
+  num_leaves: 31
+  min_child_samples: 20
+  feature_fraction: 0.2
+  max_bin: 63
+
+lightgbm_common:
+  random_state: 0
+  n_jobs: 1
+  verbose: -1
+  deterministic: true
+  force_row_wise: true
